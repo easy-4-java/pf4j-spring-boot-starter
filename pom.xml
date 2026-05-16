@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.github.hiwepy</groupId>
+	<groupId>io.github.hiwepy</groupId>
 	<artifactId>pf4j-spring-boot-starter</artifactId>
 	<description>Spring Boot Starter For Pf4j</description>
 	<version>1.0.8-SNAPSHOT</version>
