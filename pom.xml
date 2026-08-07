@@ -6,14 +6,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.0</version>
+        <version>2.3.12.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>io.github.easy4j</groupId>
     <artifactId>pf4j-spring-boot-starter</artifactId>
     <description>Spring Boot Starter For Pf4j</description>
-    <version>3.0.x.20260630-SNAPSHOT</version>
+    <version>2.3.x.20260630-SNAPSHOT</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://github.com/easy-4-java/${project.artifactId}</url>
     <packaging>jar</packaging>
@@ -416,7 +416,7 @@
         <pf4j.version>3.15.0</pf4j.version>
         <pf4j-update.version>2.3.0</pf4j-update.version>
         <pf4j-spring.version>0.10.0</pf4j-spring.version>
-        <pf4j-extension.version>3.0.x.20260630-SNAPSHOT</pf4j-extension.version>
+        <pf4j-extension.version>1.0.x.20260630-SNAPSHOT</pf4j-extension.version>
         <!-- override to keep consumer builds stable when pf4j-extension parent pom is consumed with ${revision} -->
         <revision>3.0.x.20260630-SNAPSHOT</revision>
         <slf4j.version>1.7.26</slf4j.version>
