@@ -15,9 +15,9 @@
  */
 package org.pf4j.spring.boot;
 
-import org.pf4j.spring.boot.ext.update.DefaultPluginInfoProvider;
-import org.pf4j.spring.boot.ext.update.MavenUpdateRepository;
-import org.pf4j.spring.boot.ext.update.PluginInfoProvider;
+import org.pf4j.spring.boot.ext.property.Pf4jPluginRepoProperties;
+import org.pf4j.update.extension.MavenUpdateRepository;
+import org.pf4j.update.extension.PluginInfoProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -28,19 +28,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * TODO
- * @author 		： <a href="https://github.com/hiwepy">hiwepy</a>
+ * Pf4j Maven Auto Configuration.
+ *
+ * @author <a href="https://github.com/hiwepy">hiwepy</a>
  */
 @Configuration
 @ConditionalOnClass({ MavenResource.class })
 @ConditionalOnProperty(prefix = Pf4jMavenProperties.PREFIX, value = "enabled", havingValue = "true")
-@EnableConfigurationProperties({Pf4jMavenProperties.class})
+@EnableConfigurationProperties({Pf4jMavenProperties.class, Pf4jPluginRepoProperties.class})
 public class Pf4jMavenAutoConfiguration {
-	
+
 	@Bean
 	@ConditionalOnMissingBean
 	public PluginInfoProvider pluginInfoProvider() {
-		return new DefaultPluginInfoProvider();
+		return new org.pf4j.update.extension.DefaultPluginInfoProvider();
 	}
 
 	@Bean
@@ -48,5 +49,5 @@ public class Pf4jMavenAutoConfiguration {
 			PluginInfoProvider pluginInfoProvider) {
 		return new MavenUpdateRepository(mavenProperties, pluginInfoProvider);
 	}
-	
+
 }

@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>io.github.easy4j</groupId>
-    <artifactId>pf4j3-spring-boot-starter</artifactId>
-    <description>Spring Boot Starter For Pf4j 3.x</description>
-    <version>2.0.0.RELEASE</version>
+    <artifactId>pf4j-spring-boot-starter</artifactId>
+    <description>Spring Boot Starter For Pf4j</description>
+    <version>3.0.x.20260630-SNAPSHOT</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://github.com/easy-4-java/${project.artifactId}</url>
     <packaging>jar</packaging>
@@ -47,17 +47,16 @@
     </developers>
 
     <distributionManagement>
-
-        <snapshotRepository>
-            <id>ossrh</id>
-            <name>Maven Snapshots Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <name>Maven Central Staging Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-          </repository>
+            <id>2624322-release-6F6h6R</id>
+            <name>Aliyun Release Repository</name>
+            <url>https://packages.aliyun.com/6927b116e6c3e0425dbdf60d/maven/2624322-release-6f6h6r</url>
+        </repository>
+        <snapshotRepository>
+            <id>2624322-snapshot-3EoOv3</id>
+            <name>Aliyun Snapshot Repository</name>
+            <url>https://packages.aliyun.com/6927b116e6c3e0425dbdf60d/maven/2624322-snapshot-3eoov3</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <build>
@@ -414,9 +413,12 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
         <maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
-        <pf4j.version>3.7.0</pf4j.version>
+        <pf4j.version>3.15.0</pf4j.version>
         <pf4j-update.version>2.3.0</pf4j-update.version>
-        <pf4j-spring.version>0.7.0</pf4j-spring.version>
+        <pf4j-spring.version>0.10.0</pf4j-spring.version>
+        <pf4j-extension.version>3.0.x.20260630-SNAPSHOT</pf4j-extension.version>
+        <!-- override to keep consumer builds stable when pf4j-extension parent pom is consumed with ${revision} -->
+        <revision>3.0.x.20260630-SNAPSHOT</revision>
         <slf4j.version>1.7.26</slf4j.version>
         <spring-cloud-deployer.version>2.6.4</spring-cloud-deployer.version>
     </properties>
@@ -426,6 +428,16 @@
         <repository>
             <id>sonatype-nexus-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>2624322-snapshot-3EoOv3</id>
+            <url>https://packages.aliyun.com/6927b116e6c3e0425dbdf60d/maven/2624322-snapshot-3eoov3</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -509,6 +521,20 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+
+        <!-- pf4j-extension: production-oriented extension layer -->
+        <!-- pf4j-extension-core is brought in transitively by -spring / -update -->
+        <dependency>
+            <groupId>io.github.easy4j</groupId>
+            <artifactId>pf4j-extension-spring</artifactId>
+            <version>${pf4j-extension.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.easy4j</groupId>
+            <artifactId>pf4j-extension-update</artifactId>
+            <version>${pf4j-extension.version}</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.pf4j/pf4j -->
         <dependency>
             <groupId>org.pf4j</groupId>

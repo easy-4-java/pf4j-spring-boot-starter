@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 import org.pf4j.PluginManager;
 import org.pf4j.spring.boot.ext.property.Pf4jPluginRepoProperties;
-import org.pf4j.spring.boot.ext.update.RestTemplateUpdateRepository;
+import org.pf4j.update.extension.RestTemplateUpdateRepository;
 import org.pf4j.update.DefaultUpdateRepository;
 import org.pf4j.update.UpdateManager;
 import org.pf4j.update.UpdateRepository;
@@ -38,10 +38,10 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-
 /**
- * TODO
- * @author 		： <a href="https://github.com/hiwepy">hiwepy</a>
+ * Pf4j Update Auto Configuration.
+ *
+ * @author <a href="https://github.com/hiwepy">hiwepy</a>
  */
 @Configuration
 @AutoConfigureAfter({ Pf4jMavenAutoConfiguration.class })
@@ -49,27 +49,27 @@ import org.springframework.web.client.RestTemplate;
 @ConditionalOnProperty(prefix = Pf4jUpdateProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({Pf4jUpdateProperties.class})
 public class Pf4jUpdateAutoConfiguration {
-	
+
 	@Bean
 	public UpdateManager updateManager(
 			PluginManager pluginManager,
 			@Autowired(required = false) ObjectProvider<UpdateRepository> repoProvider,
 			@Autowired(required = false) ObjectProvider<RestTemplate> restTemplateProvider,
 			Pf4jUpdateProperties properties) {
-		
+
 		List<UpdateRepository> repositories = new ArrayList<>();
 		if(!CollectionUtils.isEmpty(properties.getRepos())) {
 			for (Pf4jPluginRepoProperties repo : properties.getRepos()) {
 				repositories.add(new DefaultUpdateRepository(repo.getId(), repo.getUrl(), repo.getPluginsJsonFileName()));
 			}
 		}
-		
+
 		if(StringUtils.hasText(properties.getReposRestPath())) {
 			restTemplateProvider.ifAvailable(restTemplate -> {
 				repositories.add(new RestTemplateUpdateRepository(properties.getReposRestPath(), restTemplate));
 			});
 		}
-		
+
 		List<UpdateRepository> repos = repoProvider.orderedStream().collect(Collectors.toList());
 		if(!CollectionUtils.isEmpty(repos)) {
 			for (UpdateRepository newRepo : repos) {
@@ -78,8 +78,8 @@ public class Pf4jUpdateAutoConfiguration {
 				}
 			}
 		}
-		
-		UpdateManager updateManager = null;
+
+		UpdateManager updateManager;
 		if (StringUtils.hasText(properties.getReposJsonPath())) {
 			updateManager = new UpdateManager(pluginManager, Paths.get(properties.getReposJsonPath()));
 			if(!CollectionUtils.isEmpty(repositories)) {
@@ -90,8 +90,8 @@ public class Pf4jUpdateAutoConfiguration {
 		} else {
 			updateManager = new UpdateManager(pluginManager);
 		}
-		
+
 		return updateManager;
 	}
-	
+
 }
