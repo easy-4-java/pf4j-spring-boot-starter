@@ -41,7 +41,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Pf4j Update Auto Configuration.
  *
- * @author <a href="https://github.com/hiwepy">hiwepy</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 @Configuration
 @AutoConfigureAfter({ Pf4jMavenAutoConfiguration.class })
