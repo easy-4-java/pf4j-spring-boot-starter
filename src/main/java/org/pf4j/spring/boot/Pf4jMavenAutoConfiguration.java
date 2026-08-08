@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Pf4j Maven Auto Configuration.
  *
- * @author <a href="https://github.com/hiwepy">hiwepy</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 @Configuration
 @ConditionalOnClass({ MavenResource.class })
