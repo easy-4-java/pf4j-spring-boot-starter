@@ -20,7 +20,7 @@ import org.springframework.cloud.deployer.resource.maven.MavenProperties;
 
 /**
  * Maven Settings
- * @author ： <a href="https://github.com/hiwepy">hiwepy</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 @ConfigurationProperties(Pf4jMavenProperties.PREFIX)
 public class Pf4jMavenProperties extends MavenProperties {
