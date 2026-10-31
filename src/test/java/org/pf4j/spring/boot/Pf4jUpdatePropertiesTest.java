@@ -31,6 +31,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Pf4jUpdateProperties Tests")
 class Pf4jUpdatePropertiesTest {
     @Test
+    void repositorySettingsRoundTrip() {
+        Pf4jUpdateProperties props = new Pf4jUpdateProperties();
+        props.setEnabled(true);
+        props.setReposJsonPath("/opt/repositories.json");
+        props.setReposRestPath("https://example.invalid/repos");
+
+        assertThat(props.isEnabled()).isTrue();
+        assertThat(props.getReposJsonPath()).isEqualTo("/opt/repositories.json");
+        assertThat(props.getReposRestPath()).isEqualTo("https://example.invalid/repos");
+    }
+    @Test
     @DisplayName("Default constructor creates non-null instance")
     void testDefaultInstance() {
         Pf4jUpdateProperties props = new Pf4jUpdateProperties();
@@ -89,16 +100,11 @@ class Pf4jUpdatePropertiesTest {
     @DisplayName("Field 'repos' can be set and read")
     void testReposField() {
         Pf4jUpdateProperties props = new Pf4jUpdateProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Pf4jUpdateProperties.class.getDeclaredField("repos");
-            f.setAccessible(true);
-            f.set(props, null);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
+        org.pf4j.spring.boot.ext.property.Pf4jPluginRepoProperties repo =
+                new org.pf4j.spring.boot.ext.property.Pf4jPluginRepoProperties();
+        repo.setId("main");
+        props.setRepos(java.util.List.of(repo));
+        assertThat(props.getRepos()).containsExactly(repo);
     }
 
     @Test

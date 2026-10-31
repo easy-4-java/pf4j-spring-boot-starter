@@ -33,6 +33,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Pf4jUpdateAutoConfiguration Tests")
 class Pf4jUpdateAutoConfigurationTest {
 
+    @Test
+    void registersConfiguredRepositories() {
+        runner.withUserConfiguration(Pf4jUpdateAutoConfiguration.class)
+                .withBean(org.pf4j.PluginManager.class,
+                        () -> org.mockito.Mockito.mock(org.pf4j.PluginManager.class))
+                .withBean(org.springframework.web.client.RestTemplate.class,
+                        org.springframework.web.client.RestTemplate::new)
+                .withBean(org.pf4j.update.UpdateRepository.class,
+                        () -> org.mockito.Mockito.mock(org.pf4j.update.UpdateRepository.class))
+                .withPropertyValues(
+                        "pf4j.update.enabled=true",
+                        "pf4j.update.repos[0].id=main",
+                        "pf4j.update.repos[0].url=https://example.invalid/plugins/",
+                        "pf4j.update.repos-rest-path=https://example.invalid/repos")
+                .run(context -> assertThat(context).hasSingleBean(org.pf4j.update.UpdateManager.class));
+    }
+
     private final ApplicationContextRunner runner = new ApplicationContextRunner();
 
     @Test
@@ -46,6 +63,8 @@ class Pf4jUpdateAutoConfigurationTest {
     @DisplayName("Auto-configuration loads when 'pf4j.update.enabled=true'")
     void testLoadsWhenEnabledPropertySet() {
         runner.withUserConfiguration(Pf4jUpdateAutoConfiguration.class)
+                .withBean(org.pf4j.PluginManager.class,
+                        () -> org.mockito.Mockito.mock(org.pf4j.PluginManager.class))
                 .withPropertyValues("pf4j.update.enabled=true")
                 .run(context -> assertThat(context).hasSingleBean(Pf4jUpdateAutoConfiguration.class));
     }
