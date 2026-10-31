@@ -15,7 +15,6 @@
  */
 package org.pf4j.spring.boot;
 
-import org.pf4j.spring.boot.ext.property.Pf4jPluginRepoProperties;
 import org.pf4j.update.extension.MavenUpdateRepository;
 import org.pf4j.update.extension.PluginInfoProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -35,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnClass({ MavenResource.class })
 @ConditionalOnProperty(prefix = Pf4jMavenProperties.PREFIX, value = "enabled", havingValue = "true")
-@EnableConfigurationProperties({Pf4jMavenProperties.class, Pf4jPluginRepoProperties.class})
+@EnableConfigurationProperties(Pf4jMavenProperties.class)
 public class Pf4jMavenAutoConfiguration {
 
 	@Bean

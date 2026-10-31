@@ -31,6 +31,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Pf4jProperties Tests")
 class Pf4jPropertiesTest {
     @Test
+    void publicPropertiesRoundTrip() {
+        Pf4jProperties props = new Pf4jProperties();
+        props.setEnabled(true);
+        props.setAutowire(false);
+        props.setInjectable(false);
+        props.setSingleton(false);
+        props.setRuntimeMode(org.pf4j.RuntimeMode.DEVELOPMENT);
+        props.setSystemVersion("2.1.0");
+        props.setPluginsRoot("/opt/plugins");
+        props.setJarPackages(false);
+        props.setExactVersionAllowed(true);
+
+        assertThat(props.isEnabled()).isTrue();
+        assertThat(props.isAutowire()).isFalse();
+        assertThat(props.isInjectable()).isFalse();
+        assertThat(props.isSingleton()).isFalse();
+        assertThat(props.getRuntimeMode()).isEqualTo(org.pf4j.RuntimeMode.DEVELOPMENT);
+        assertThat(props.getSystemVersion()).isEqualTo("2.1.0");
+        assertThat(props.getPluginsRoot()).isEqualTo("/opt/plugins");
+        assertThat(props.isJarPackages()).isFalse();
+        assertThat(props.isExactVersionAllowed()).isTrue();
+    }
+    @Test
     @DisplayName("Default constructor creates non-null instance")
     void testDefaultInstance() {
         Pf4jProperties props = new Pf4jProperties();
@@ -121,32 +144,16 @@ class Pf4jPropertiesTest {
     @DisplayName("Field 'classesDirectories' can be set and read")
     void testClassesDirectoriesField() {
         Pf4jProperties props = new Pf4jProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Pf4jProperties.class.getDeclaredField("classesDirectories");
-            f.setAccessible(true);
-            f.set(props, null);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
+        props.setClassesDirectories(java.util.List.of("classes"));
+        assertThat(props.getClassesDirectories()).containsExactly("classes");
     }
 
     @Test
     @DisplayName("Field 'libDirectories' can be set and read")
     void testLibDirectoriesField() {
         Pf4jProperties props = new Pf4jProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Pf4jProperties.class.getDeclaredField("libDirectories");
-            f.setAccessible(true);
-            f.set(props, null);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
+        props.setLibDirectories(java.util.List.of("lib"));
+        assertThat(props.getLibDirectories()).containsExactly("lib");
     }
 
     @Test
@@ -169,16 +176,8 @@ class Pf4jPropertiesTest {
     @DisplayName("Field 'plugins' can be set and read")
     void testPluginsField() {
         Pf4jProperties props = new Pf4jProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = Pf4jProperties.class.getDeclaredField("plugins");
-            f.setAccessible(true);
-            f.set(props, null);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
+        props.setPlugins(java.util.List.of("plugin"));
+        assertThat(props.getPlugins()).containsExactly("plugin");
     }
 
     @Test
