@@ -16,7 +16,6 @@
 package ro.fortsoft.pf4j.spring.boot.ext.utils;
 
 import java.nio.file.FileSystems;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -34,15 +33,12 @@ public class PluginUtils {
 		
 		if(!CollectionUtils.isEmpty(plugins)) {
 			
-			List<String> pluginIds = new ArrayList<String>();
-			
 			for (String path : plugins) {
 				try {
 					//加载指定路径的插件
 					String pluginId = pluginManager.loadPlugin(FileSystems.getDefault().getPath(path));
 					//如果插件存在则，启动该插件
 					if(StringUtils.hasText(pluginId)) {
-						pluginIds.add(pluginId);
 						pluginManager.startPlugin(pluginId);
 					}
 				} catch (Exception e) {
@@ -50,16 +46,6 @@ public class PluginUtils {
 				}
 			}
 			
-			try {
-				for (String pluginId : pluginIds) {
-					//如果插件存在则，启动该插件
-					if(StringUtils.hasText(pluginId)) {
-						pluginManager.startPlugin(pluginId);
-					}
-				}
-			} catch (Exception e) {
-				logger.error(e.getMessage());;
-			}
 		}
 		
 	}
