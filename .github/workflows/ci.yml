@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [2.3.x, 2.7.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x, 3.4.x, 3.5.x, 4.0.x, 4.1.x]
+    branches: [2.3.x, 2.7.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x, 3.4.x, 3.5.x, 4.0.x, 4.1.x, codex/ci-pf4j-3.3.x-20261031]
   pull_request:
     branches: [2.3.x, 2.7.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x, 3.4.x, 3.5.x, 4.0.x, 4.1.x]
 
@@ -11,5 +11,8 @@ permissions:
 
 jobs:
   build:
-    uses: easy-4-java/.github/.github/workflows/maven-starter-ci.yml@main
-    secrets: inherit
+    uses: easy-4-java/.github/.github/workflows/maven-starter-ci.yml@bf473d6e9490345a8ac2abeb895639f87448c7ff
+    with:
+      version-line: 3.3.x
+    secrets:
+      MAVEN_SETTINGS_XML: ${{ secrets.MAVEN_SETTINGS_XML }}
