@@ -7,7 +7,7 @@
 **Spring Boot Starter，集成 pf4j**
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.easy4j/pf4j-spring-boot-starter)](https://github.com/easy-4-java/pf4j-spring-boot-starter)
-[![Java](https://img.shields.io/badge/Java-17-orange)](#3-运行要求与兼容性)
+[![Java](https://img.shields.io/badge/Java-21-orange)](#3-运行要求与兼容性)
 [![License](https://img.shields.io/badge/license-Apache-2.0-green)](https://www.apache.org/licenses/LICENSE-2.0)
 
 [English](./README.md) | [简体中文](./README.zh-CN.md)
@@ -22,7 +22,7 @@
 ---
 
 > **当前版本**：`3.0.x.20260630-SNAPSHOT`<br>
-> **JDK 基线**：`17+`<br>
+> **当前 main 依赖的 JDK 基线**：`21+`<br>
 > **Group ID**：`io.github.easy4j`<br>
 > **Artifact ID**：`pf4j-spring-boot-starter`<br>
 > **许可证**：Apache License 2.0<br>
@@ -38,7 +38,7 @@
 | 类型 | Spring Boot Starter |
 | 消费方 | 使用 pf4j 3.15.x 的 Spring Boot 应用 |
 | 核心能力 | 自动装配、属性绑定、开箱即用的 pf4j Bean |
-| JDK | `17+` |
+| JDK | 当前 `pf4j-extension` 3.0.x 依赖要求 `21+` |
 | 坐标 | `io.github.easy4j:pf4j-spring-boot-starter:3.0.x.20260630-SNAPSHOT` |
 | 配置前缀 | `pf4j` |
 
@@ -57,7 +57,7 @@
 
 | 依赖 | 最低版本 | 证据来源 |
 |---|---:|---|
-| JDK | `17` | `pom.xml` |
+| JDK | `21` | `pf4j-extension` 3.0.x 源码与类文件 |
 | Spring Boot | `2.6.0` | `pom.xml` parent |
 | Maven | `3.6+` | Maven Enforcer |
 | pf4j-extension | `3.0.x.20260630-SNAPSHOT` | `pom.xml` 依赖 |
@@ -101,6 +101,8 @@ Starter 会传递引入：
 - `org.pf4j:pf4j-update`
 
 ## 6. 快速开始
+
+需要断点调试插件加载过程时，可运行仓库中的[完整示例](examples/README.md)，它包含插件 JAR、Spring Boot 应用和启动检查。
 
 ### 6.1 引入依赖
 
@@ -157,6 +159,8 @@ private org.pf4j.spring.extension.registry.Pf4jDynamicControllerRegistry pf4jDyn
 | `pf4j.maven.enabled` | boolean | `false` | 否 | 启用 Maven 资源解析 | 否 |
 
 ## 8. 版本线与兼容性
+
+下表描述各维护分支。当前 `main` 的 POM 则引用 `pf4j-extension` 3.0.x，因此需要 JDK 21；构建时以目标分支 POM 为准。
 
 | 分支 | JDK | Spring Boot | pf4j-extension | Starter 版本 | 状态 |
 |---|---:|---:|---|---|:---:|

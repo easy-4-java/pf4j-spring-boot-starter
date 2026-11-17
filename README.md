@@ -7,7 +7,7 @@
 **Spring Boot Starter for pf4j**
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.easy4j/pf4j-spring-boot-starter)](https://github.com/easy-4-java/pf4j-spring-boot-starter)
-[![Java](https://img.shields.io/badge/Java-17-orange)](#3-requirements-and-compatibility)
+[![Java](https://img.shields.io/badge/Java-21-orange)](#3-requirements-and-compatibility)
 [![License](https://img.shields.io/badge/license-Apache-2.0-green)](https://www.apache.org/licenses/LICENSE-2.0)
 
 [简体中文](./README.zh-CN.md) | [English](./README.md)
@@ -22,7 +22,7 @@
 ---
 
 > **Current Version**：`3.0.x.20260630-SNAPSHOT`<br>
-> **JDK Baseline**：`17+`<br>
+> **JDK Baseline for current main dependencies**：`21+`<br>
 > **Group ID**：`io.github.easy4j`<br>
 > **Artifact ID**：`pf4j-spring-boot-starter`<br>
 > **License**：Apache License 2.0<br>
@@ -38,7 +38,7 @@ This starter is the **thin auto-configuration layer** on top of [pf4j-extension]
 | Type | Spring Boot Starter |
 | Consumers | Spring Boot applications using pf4j 3.15.x |
 | Core Capabilities | auto-configuration, property binding, ready-to-use beans for pf4j |
-| JDK | `17+` |
+| JDK | `21+` for the current `pf4j-extension` 3.0.x dependency |
 | Coordinates | `io.github.easy4j:pf4j-spring-boot-starter:3.0.x.20260630-SNAPSHOT` |
 | Config Prefix | `pf4j` |
 
@@ -57,7 +57,7 @@ This starter is the **thin auto-configuration layer** on top of [pf4j-extension]
 
 | Dependency | Minimum | Evidence |
 |---|---:|---|
-| JDK | `17` | `pom.xml` |
+| JDK | `21` | `pf4j-extension` 3.0.x source and classes |
 | Spring Boot | `2.6.0` | `pom.xml` parent |
 | Maven | `3.6+` | Maven Enforcer |
 | pf4j-extension | `3.0.x.20260630-SNAPSHOT` | `pom.xml` dependency |
@@ -101,6 +101,8 @@ The starter transitively brings in:
 - `org.pf4j:pf4j-update`
 
 ## 6. Quick Start
+
+For a runnable plugin and Spring Boot application with a loading checkpoint, see the [debuggable example](examples/README.md).
 
 ### 6.1 Add dependency
 
@@ -157,6 +159,8 @@ private org.pf4j.spring.extension.registry.Pf4jDynamicControllerRegistry pf4jDyn
 | `pf4j.maven.enabled` | boolean | `false` | No | Enable Maven resource resolution | No |
 
 ## 8. Version Lines and Compatibility
+
+The table below describes maintained version branches. The current `main` POM instead references `pf4j-extension` 3.0.x and therefore requires JDK 21; use the POM of the branch being built as the source of truth.
 
 | Branch | JDK | Spring Boot | pf4j-extension | Starter Version | Status |
 |---|---:|---:|---|---|:---:|
