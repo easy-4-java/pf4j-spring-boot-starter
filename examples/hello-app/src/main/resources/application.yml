@@ -1,0 +1,4 @@
+pf4j:
+  enabled: true
+  plugins-root: plugins
+  runtime-mode: deployment
